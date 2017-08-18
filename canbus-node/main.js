@@ -1,4 +1,6 @@
 var can = require('rawcan');
+var telemetry = require('./telemetry.js');
+
 var socket = can.createSocket('can0');
 
 
