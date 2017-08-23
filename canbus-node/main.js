@@ -24,15 +24,19 @@ timer.onTime(function(time){
    console.log(time.ms);
 })
 
+function ponged(){
+ console.log("CAN response to PING")
+}
 
 
 io.on('connect',function(data){
 
    console.log("Client connected to server. Verify on server machine");
 
-   checkCANBus();
+   canSocket.send(100, "send test");
 
-   timer.start(); 
+   //timer.start(); 
+
    io.on("ping",function(){
       timer.stop();
       timer.reset(3000) //when pinged, reset timer
@@ -41,12 +45,16 @@ io.on('connect',function(data){
       io.emit("pong-back");
    })
 
+   io.on("emergencyStop", function(){
+      console.log("EMERGENCY STOP TRIGGERED");
+      currentState = "STOPPING...";  
+   })
 
 
-//Timer 
-timer.onDone(function(){
-   console.log("NETWORK TIMEOUT - Trying to reconnect...");   
-})
+   //Timer 
+   timer.onDone(function(){
+      console.log("NETWORK TIMEOUT - Trying to reconnect...");   
+   })
 })
 
 ////////////////////////////////
