@@ -67,9 +67,7 @@ io.on('disconnect', function(){
    console.log("A client has disconnected.");
    console.log("Total clients connected: " + clientCount);
 
-   setInterval(function(){
-      
-   }, 300)
+   
 })
 
 ////////////////////////////////
